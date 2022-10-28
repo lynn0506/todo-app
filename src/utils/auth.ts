@@ -1,4 +1,4 @@
-export const isValidUserName = (username) => {
+export const isValidUserName = (username: string): boolean => {
     if (username.length < 4) {
         alert('4자 이상의 아이디를 설정해 주세요');
         return false;
@@ -13,7 +13,7 @@ export const isValidUserName = (username) => {
     return true;
 };
 
-export const isValidPassword = (password, passwordCheck) => {
+export const isValidPassword = (password: string, passwordCheck: string): boolean => {
     if (password !== passwordCheck) {
         alert('비밀번호가 서로 다릅니다');
         return false;
@@ -27,7 +27,7 @@ export const isValidPassword = (password, passwordCheck) => {
     return true;
 };
 
-export const checkApiResponseStatus = (status) => {
+export const checkApiResponseStatus = (status: number) => {
     if (status === 401) {
         alert('다시 로그인해 주세요.');
         sessionStorage.clear();

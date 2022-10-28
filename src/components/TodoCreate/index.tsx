@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { FormEvent, ReactElement, useState } from 'react';
 import { MdAdd } from 'react-icons/md';
 
 import './TodoCreate.scss';
 
-function TodoCreate({ onCreate }) {
+interface TodoCreateProps {
+    onCreate: (text: string) => void;
+}
+
+const TodoCreate = ({ onCreate }: TodoCreateProps): ReactElement => {
     const [open, setOpen] = useState(false);
     const [text, setText] = useState('');
 
-    const onSubmit = (e) => {
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (text.trim()) {
             onCreate(text);
@@ -35,6 +39,6 @@ function TodoCreate({ onCreate }) {
             </button>
         </>
     );
-}
+};
 
 export default TodoCreate;

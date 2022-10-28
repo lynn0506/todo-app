@@ -1,23 +1,28 @@
-import React, { useState } from 'react';
-//editIcon 추가
+import React, { ChangeEvent, FormEvent, ReactElement, useState } from 'react';
 import { MdDone, MdDelete, MdEdit } from 'react-icons/md';
+
+import { Todo } from '../../interface/todo';
 import './TodoItem.scss';
 
-function TodoItem({ todo, onToggle, onUpdate, onRemove }) {
+interface TodoItemProps {
+    todo: Todo;
+    onToggle: (id: number) => void;
+    onUpdate: (id: number, todoText: string) => void;
+    onRemove: (id: number) => void;
+}
+
+const TodoItem = ({ todo, onToggle, onUpdate, onRemove }: TodoItemProps): ReactElement => {
     const { id, text, done } = todo;
-    //todo text 수정 위한 editIcon 추가되면서 isRemoveIconVisible의 변수명을 아래와 같이 바꿈
     const [isIconVisible, setIsIconVisible] = useState(false);
 
-    //edit icon 클릭시 div -> input으로 변경
     const [isTodoEditable, setIsTodoEditable] = useState(false);
-    //todo text
     const [todoText, setTodoText] = useState(text);
 
-    // input change 및 submit
-    const onChangeText = (e) => {
+    const onChangeText = (e: ChangeEvent<HTMLInputElement>) => {
         setTodoText(e.target.value);
     };
-    const onSubmitTextUpdatedTodo = (e) => {
+
+    const onSubmitTextUpdatedTodo = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         onUpdate(id, todoText);
         setIsTodoEditable(false);
@@ -45,6 +50,6 @@ function TodoItem({ todo, onToggle, onUpdate, onRemove }) {
             </div>
         </div>
     );
-}
+};
 
 export default TodoItem;

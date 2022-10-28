@@ -1,18 +1,23 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, MouseEvent, FormEvent, ReactElement, useState } from 'react';
 
 import { isValidUserName, isValidPassword } from '../../utils/auth';
 import { signUp } from '../../api/auth';
+import { SignUpForm } from '../../interface/user';
 
 import './SignUp.scss';
 
-function SignUp({ onClickLoginBtn }) {
-    const [formData, setFormData] = useState({
+interface SignUpProps {
+    onClickLoginBtn: (e: MouseEvent<HTMLButtonElement>) => void;
+}
+
+const SignUp = ({ onClickLoginBtn }: SignUpProps): ReactElement => {
+    const [formData, setFormData] = useState<SignUpForm>({
         username: '',
         password: '',
         passwordCheck: '',
     });
 
-    const onChangeFormData = (e) => {
+    const onChangeFormData = (e: ChangeEvent<HTMLInputElement>) => {
         const name = e.target.name;
         const value = e.target.value;
 
@@ -22,7 +27,7 @@ function SignUp({ onClickLoginBtn }) {
         });
     };
 
-    const onSubmit = (e) => {
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const { username, password, passwordCheck } = formData;
@@ -85,6 +90,6 @@ function SignUp({ onClickLoginBtn }) {
             </form>
         </div>
     );
-}
+};
 
 export default SignUp;
