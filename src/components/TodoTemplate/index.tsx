@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import axios from 'axios';
 
 import TodoHead from '../TodoHead';
 import TodoList from '../TodoList';
 import TodoCreate from '../TodoCreate';
 import { checkApiResponseStatus } from '../../utils/auth';
+import { Todo } from '../../interface/todo';
 
 import './TodoTemplate.scss';
 
 axios.defaults.withCredentials = true;
 
-function TodoTemplate() {
-    const [todos, setTodos] = useState([]);
+const TodoTemplate = (): ReactElement => {
+    const [todos, setTodos] = useState<Todo[]>([]);
 
     useEffect(() => {
         axios
@@ -25,11 +26,11 @@ function TodoTemplate() {
             });
     }, []);
 
-    const onToggle = (id) => {
+    const onToggle = (id: number) => {
         axios
             .patch(`http://localhost:8000/api/todos/${id}/check/`)
             .then(() => {
-                const newTodos = todos.map((todo) => (todo.id === id ? { ...todo, done: !todo.done } : todo));
+                const newTodos = todos.map((todo: Todo) => (todo.id === id ? { ...todo, done: !todo.done } : todo));
                 setTodos(newTodos);
             })
             .catch((error) => {
@@ -38,7 +39,7 @@ function TodoTemplate() {
             });
     };
 
-    const onUpdate = (id, text) => {
+    const onUpdate = (id: number, text: string) => {
         axios
             .patch(`http://localhost:8000/api/todos/${id}/`, { text })
             .then(() => {
@@ -51,7 +52,7 @@ function TodoTemplate() {
             });
     };
 
-    const onRemove = (id) => {
+    const onRemove = (id: number) => {
         axios
             .delete(`http://localhost:8000/api/todos/${id}/`)
             .then(() => {
@@ -64,7 +65,7 @@ function TodoTemplate() {
             });
     };
 
-    const onCreate = (text) => {
+    const onCreate = (text: string) => {
         const newTodo = { text };
         axios
             .post('http://localhost:8000/api/todos/create/', newTodo)
@@ -84,6 +85,6 @@ function TodoTemplate() {
             <TodoCreate onCreate={onCreate} />
         </div>
     );
-}
+};
 
 export default TodoTemplate;

@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, MouseEvent, FormEvent, ReactElement, useState } from 'react';
 
 import { login } from '../../api/auth';
+import { LoginUserForm } from '../../interface/user';
 import './Login.scss';
 
-const Login = ({ onClickSignUpBtn }: { onClickSignUpBtn: any }) => {
-    const [formData, setFormData] = useState({
+interface LoginProps {
+    onClickSignUpBtn: (e: MouseEvent<HTMLButtonElement>) => void;
+}
+
+const Login = ({ onClickSignUpBtn }: LoginProps): ReactElement => {
+    const [formData, setFormData] = useState<LoginUserForm>({
         username: '',
         password: '',
     });
 
-    const onChangeFormData = (e: any) => {
+    const onChangeFormData = (e: ChangeEvent<HTMLInputElement>) => {
         const name = e.target.name;
         const value = e.target.value;
 
@@ -19,7 +24,7 @@ const Login = ({ onClickSignUpBtn }: { onClickSignUpBtn: any }) => {
         });
     };
 
-    const onSubmit = (e: any) => {
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         login(formData);
@@ -53,7 +58,7 @@ const Login = ({ onClickSignUpBtn }: { onClickSignUpBtn: any }) => {
                     placeholder="비밀번호"
                 />
                 <button type="submit">로그인</button>
-                <button name="singup" onClick={onClickSignUpBtn}>
+                <button name="signup" onClick={onClickSignUpBtn}>
                     회원가입
                 </button>
             </form>

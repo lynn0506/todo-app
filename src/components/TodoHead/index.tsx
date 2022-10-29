@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { logout } from '../../api/auth';
+import { Todo } from '../../interface/todo';
 import './TodoHead.scss';
 
-function TodoHead({ todos }) {
+interface TodoHeadProps {
+    todos: Todo[];
+}
+
+const TodoHead = ({ todos }: TodoHeadProps): ReactElement => {
     const undoneTodos = todos.filter((todo) => !todo.done);
     const today = new Date();
     const dateString = today.toLocaleDateString('ko-KR', {
@@ -23,6 +28,6 @@ function TodoHead({ todos }) {
             </div>
         </div>
     );
-}
+};
 
 export default TodoHead;
