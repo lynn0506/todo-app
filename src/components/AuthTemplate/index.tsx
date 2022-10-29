@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, MouseEvent, useState } from 'react';
 
 import Login from '../Login';
 import SignUp from '../SignUp';
@@ -13,10 +13,10 @@ const LOGIN_PAGE = 'login';
 const AuthTemplate = (): ReactElement => {
     const [pageName, setPageName] = useState<PageName>(PageName.Login);
 
-    const routeToClickedPage = (e: any) => {
+    const routeToClickedPage = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
-        const nextPageName = e.target.name;
+        const nextPageName = (e.target as HTMLButtonElement).name as PageName;
         setPageName(nextPageName);
     };
 
