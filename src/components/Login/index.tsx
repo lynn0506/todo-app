@@ -58,7 +58,7 @@ const Login = ({ onClickSignUpBtn }: LoginProps): ReactElement => {
                     placeholder="비밀번호"
                 />
                 <button type="submit">로그인</button>
-                <button name="singup" onClick={onClickSignUpBtn}>
+                <button name="signup" onClick={onClickSignUpBtn}>
                     회원가입
                 </button>
             </form>
